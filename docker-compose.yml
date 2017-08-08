@@ -1,0 +1,12 @@
+app: 
+  image: "avramach/cmad-blog:staging"
+  links:
+    - "db:db"
+  ports:
+    - "9999:8080"
+db:
+  environment:
+    - MYSQL_ROOT_PASSWORD=password
+  image: "mysql:latest"
+  volumes:
+    - /var/lib/mysql
