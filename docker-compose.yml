@@ -8,5 +8,7 @@ db:
   environment:
     - MYSQL_ROOT_PASSWORD=password
   image: "mysql:latest"
+  ports:
+    - "6606:3306"
   volumes:
     - /var/lib/mysql
