@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -43,9 +44,11 @@ public class Blog {
 	private long blogId;
 
 	private String title;
-
+	@Lob
 	private String blogMessage;
 
+	private String image;
+	
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
@@ -171,5 +174,13 @@ public class Blog {
 			commentList.add(comment);
 		}		
 		System.out.println("SIZE:  "+commentList.size());
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 }

@@ -27,7 +27,10 @@ public class UserJpaDao implements UserDAO {
 	public void create(User user) {
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
-		em.persist(user);
+		User duplicateUser = em.find(User.class, user.getUserId());
+		if(duplicateUser == null){
+			em.persist(user);	
+		}
 		em.getTransaction().commit();
 		em.close();
 	}

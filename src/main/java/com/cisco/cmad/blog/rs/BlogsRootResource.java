@@ -62,7 +62,7 @@ public class BlogsRootResource {
 	}
 
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
+	//@Consumes(MediaType.APPLICATION_JSON)
 	public Response addBlog(Blog blog, @Context UriInfo uriInfo) {
 
 		Blog newBlog = blogService.create(blog);

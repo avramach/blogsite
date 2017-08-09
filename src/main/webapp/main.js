@@ -1,51 +1,72 @@
-/**
- * 
- */
-var $blogs = $('#blogs');
-var $title = $('#title');
-var $Message = $('#Message');
-var blogTemplate = $('#blog-template').html();
+(function(){
+  var app = angular.module('blogApp',[]);
 
-function showBlog(blog) {
-	$blogs.append(Mustache.render(blogTemplate, blog));
+  app.controller('BlogController', ['$http', function($http){
+
+    var blog = this;
+    blog.title = "CMAD BLOGS";
+
+    blog.posts = {};
+    $http.get('http://localhost:9999/cmadblog/blogsite/blogs').success(function(data){
+      blog.posts = data;
+    });
+
+    blog.tab = 'blog';
+
+    blog.selectTab = function(setTab){
+      blog.tab = setTab;
+      console.log(blog.tab)
+    };
+
+    blog.isSelected = function(checkTab){
+      return blog.tab === checkTab;
+    };
+
+    blog.post = {};
+    blog.addPost = function(){
+      blog.post.createDate = Date.now();
+      blog.post.commentList = [];
+      blog.post.likes = 0;
+      blog.posts.unshift(this.post);
+      var config = {headers:  {
+        'Content-Type': 'application/json'
+      }
+    };
+    var data = {
 };
+    
+      $http.post('http://localhost:9999/cmadblog/blogsite/blogs', JSON.stringify(data),config) .then(function (response) {
+        if (response.data)
+        console.error("Post Data Submitted Successfully!" +response.data );
+        blogPath = response.headers('Location');
+        console.log('Location recieved '+blogPath);
+        $http.put(blogPath , JSON.stringify(blog.post),config).then(function (response) {
+          if (response.data)
+          console.log("Put Data Submitted Successfully!");
+          console.log('Response Status  recieved '+response.status);
+        }, function (response) {
+          console.log("Put Data Failed "+response.status);
+          console.log("Put Data Failed "+response.statusText);
+        });
 
-$.ajax({
-	type : 'GET',
-	url : 'http://localhost:8080/cmadblog/blogsite/blogs/',
-	success : function(data) {
-		console.log('success', data);
-		$.each(data, function(i, blog) {
-			console.log('item"', blog);
-			showBlog(blog);
-		});
-	},
-	error : function() {
-		alert('error loading Blogs');
-	}
-});
+      }, function (response) {
+        console.log("Post Data Failed");
+        console.log("Put Data Failed "+response.status);
+        console.log("Put Data Failed "+response.statusText);
+      });
+      blog.tab = 0;
+      blog.post ={};
+    };
 
-$('#add-blog').on('click', function() {
+  }]);
 
-	var blog = {
-			title : $title.val(),
-			blogMessage : $Message.val()
-	};
+  app.controller('CommentController', function(){
+    this.comment = {};
+    this.addComment = function(post){
+      this.comment.createDate= Date.now();
+      post.comments.push(this.comment);
+      this.comment ={};
+    };
+  });
 
-	$.ajax({
-		type : 'POST',
-		  headers: { 
-		        'Accept': 'application/json',
-		        'Content-Type': 'application/json' 
-		    },
-		url : 'http://localhost:8080/cmadblog/blogsite/blogs/',
-		data :JSON.stringify( blog),
-		dataType : 'json',
-		success : function(blog) {
-			addOrder(newOrder);
-		},
-		error : function() {
-			alert('error Posting  Blog');
-		}
-	});
-});
+})();

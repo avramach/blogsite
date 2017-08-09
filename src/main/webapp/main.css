@@ -1,31 +1,120 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Aria, sans-serif;
+<style class="cp-pen-styles">* {
+  box-sizing: border-box;
 }
-
-a {
-  color: #00B7FF;
+html {
+  font-size: 10x;
 }
+.topbar {
+  background: #2A3138;
+  color: #F26743;
+  width: 100
+  z-index: 9999;
+  text-transform: uppercase;
 
-ul {
+}
+.topbar h1 {
+  cursor: pointer;
+  text-decoration: none;
+  color: #475258;
+  transition: 0.3s;
+}
+.topbar h1:hover {
+  color: #57CBC8;
+}
+.topbar nav {
+  margin-top: 25px;
+}
+.topbar nav ul {
+  padding: 0;
+  margin: 0;
+}
+.topbar nav ul li {
+  display: inline-block;
+  padding: 10px;
+}
+.topbar nav ul li a {
+  color: #F26743;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #475258;
+  transition: 0.3s;
+}
+.topbar nav ul li a :hover {
+  color: #57CBC8;
+}
+ul.post-grid {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+ul.post-grid li {
+  padding: 20px;
+  cursor: pointer;
+  -webkit-transition: background linear 0.5s;
+  transition: background linear 0.5s;
+  border-bottom: 1px solid #3a8bab;
+}
+ul.post-grid li:hover {
+  background: #3a8bab;
+  color: white;
+}
+ul.post-grid li:hover h3 {
+  color: white;
+}
+.content {
+  width: 100%;
+  position: relative;
+  padding: 20px 40px 20px;
+  background: #3a444e;
+}
+h2,
+h3 {
+  color: #3a8bab;
+}
+.post {
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  opacity: 1;
+  padding-bottom: 30px;
+}
+.post cite {
+  display: inline-block;
+  padding: 10px 0;
+}
+.comments ul {
+  margin: 0;
   padding: 0;
 }
-
-ul li {
+.comments ul li {
   list-style-type: none;
-  background: #dfdfdf;
+  padding: 20px 5px;
+  border-bottom: 1px #79B9D2 solid;
+}
+.post.ng-hide {
+  opacity: 0;
+}
+.post.ng-hide-add,
+.post.ng-hide-remove {
+  display: block!important;
+}
+form {
+  width: 100%;
+}
+input,
+textarea {
+  display: block;
+  width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+.ng-invalid.ng-dirty {
+  border-color: red;
+}
+.ng-valid.ng-dirty {
+  border-color: green;
+}
+img {
+  max-width: 100%;
 }
 
-ul li .edit {
-  display: none;
-}
-
-ul li.edit .edit {
-  display: initial;
-}
-
-ul li.edit .noedit {
-  display: none;
-}
+</style>
