@@ -24,22 +24,22 @@
 
     blog.post = {};
     blog.addPost = function(){
-      blog.post.createDate = Date.now();
-      blog.post.commentList = [];
-      blog.post.likes = 0;
       blog.posts.unshift(this.post);
       var config = {headers:  {
         'Content-Type': 'application/json'
       }
     };
-    var data = {
-};
     
+    var data = {
+      title : blog.post.title,
+      blogMessage:blog.post.blogMessage.join()
+    }    
       $http.post('http://localhost:9999/cmadblog/blogsite/blogs', JSON.stringify(data),config) .then(function (response) {
         if (response.data)
         console.error("Post Data Submitted Successfully!" +response.data );
         blogPath = response.headers('Location');
         console.log('Location recieved '+blogPath);
+        /*
         $http.put(blogPath , JSON.stringify(blog.post),config).then(function (response) {
           if (response.data)
           console.log("Put Data Submitted Successfully!");
@@ -48,7 +48,7 @@
           console.log("Put Data Failed "+response.status);
           console.log("Put Data Failed "+response.statusText);
         });
-
+        */
       }, function (response) {
         console.log("Post Data Failed");
         console.log("Put Data Failed "+response.status);
